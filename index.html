@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+
+    <title>Digital Piano</title>
+
+    <style>
+      body {
+		margin: 0 auto;
+		text-align: center;
+		background-color: #c4c8d5;
+		font-family: "Lobster", "Open Sans";
+      }
+	  
+	  #piano {
+		position: absolute;
+		width: 96%;
+		left: 2%;
+		height: 140px;
+		top: calc(50% - 70px);
+		background-color: #00071c;
+		border-radius: 5px;
+		/*border: 1px solid white;*/
+		box-sizing: border-box;
+		box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+	  }
+	  
+	  #keyWrapper {
+		position: absolute;
+		width: 100%;
+		transition: 1s;
+	  }
+	  
+	  #keys {
+		width: 100%;
+	  }
+	  
+	  #whiteKeyWrapper {
+		position: absolute;
+		left: 2%;
+		width: 98%;
+		border-bottom: 1px solid white;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	  }
+	  
+	  .whiteKey {
+		padding-top: 50px;
+		font-size: 11px;
+		float: left;
+		width: 14%;
+		background-color: white;
+		height: 70px;
+		box-sizing: border-box;
+		border: 1px solid black;
+	  }
+	  
+	  #blackKeyWrapper {
+		left: 12%;
+		position: absolute;
+		width: 88%;
+	  }
+	  
+	  .blackKey {
+		padding-top: 5px;
+		float: left;
+		margin-right: 9%;
+		height: 40px;
+		width: 7%;
+		background-color: black;
+		color: white;
+		font-size: 11px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	  }
+	  
+	  .emptyBlackKey {
+		float: left;
+		margin-left: 7%;
+		height: 40px;
+		width: 7%;
+	  }
+	  
+	  h1 {
+		color: white;
+		font-size: 25px;
+		padding: 10px;
+		margin: 0;
+		border-bottom: 1px solid white;
+		text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+	  }
+	  
+	  @font-face {
+		font-family: Lobster;
+		src: url("Lobster.otf") format("opentype");
+	  }
+	  
+	  #up {
+		right: 0;
+		border-radius: 15px 0 0 0;
+	  }
+	  
+	  #down {
+		left: 0;
+		border-radius: 0 15px 0 0;
+	  }
+	  
+	  .button {
+		position: absolute;
+		bottom: 0;
+		background-color: #262626;
+		height: 25px;
+		width: 60px;
+		color: white;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		font-size: 12px;
+		font-family: "Open Sans";
+		line-height: 25px;
+		text-align: center;
+		font-weight: bold;
+	  }
+	  
+	  #slider {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 7px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 70px;
+		height: 11px;
+		border-radius: 11px;
+		background-color: #262626;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	  }
+	  
+	  #pointer {
+		width: 15px;
+		height: 15px;
+		background-color: lightgrey;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		border-radius: 15px;
+		position: absolute;
+		top: -2px;
+		left: calc(50% - 7px);
+		transition: 0.5s;
+	  }
+	  
+	  /* please fix this in kaiads sdk, current ads break layout */
+	  div[style^='position: absolute; left: -1000%;'] {
+	    bottom: 0;
+	  }
+	  
+	  #bodyWrapper {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+	  }	
+	  
+    </style>
+	<script src="kaiads.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+	<div id="bodyWrapper">
+		<!-- notes div stores the audio files, generated in the app.js -->
+		<div id="notes"></div>
+		<!-- visual piano on the screen-->
+		<div id="piano">
+			<h1>Digital Piano</h1>
+			<div id="whiteKeyWrapper">
+				<div id="1" class="whiteKey">1</div>
+				<div id="3" class="whiteKey">3</div>
+				<div id="5" class="whiteKey">5</div>
+				<div id="6" class="whiteKey">6</div>
+				<div id="8" class="whiteKey">8</div>
+				<div id="*" class="whiteKey">*</div>
+				<div id="#" class="whiteKey">#</div>
+			</div>
+			<div id="blackKeyWrapper">
+				<div id="2" class="blackKey">2</div>
+				<div id="4" class="blackKey">4</div>
+				<div class="emptyBlackKey"></div>
+				<div id="7" class="blackKey">7</div>
+				<div id="9" class="blackKey">9</div>
+				<div id="0" class="blackKey">0</div>
+			</div>
+		</div>
+		<!-- option for swapping between octaves -->
+		<div id="down" class="button">DOWN</div>
+		
+		<div id="slider"><div id="pointer"></div></div>
+		
+		<div id="up" class="button">UP</div>
+	</div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.2",
+  "name": "Digital Piano",
+  "subtitle": "A classical piano in your pocket.",
+  "description": "Digital piano lets you play your favourite songs on this pocket-sized piano. Spanning over three octaves, it has the feel and touch of a real classical piano.",
+  "type": "web",
+  "launch_path": "/index.html",
+  "icons": {
+    "56": "/icons/digital_piano_56.png",
+    "112": "/icons/digital_piano_112.png"
+  },
+  "developer": {
+    "name": "REY",
+	"url": "http://rey-kaios.com"
+  },
+  "categories": [
+	"entertainment"
+  ],
+  "fullscreen": true,
+  "theme_color": "#CD006F",
+  "locales": {
+    "en-US": {
+      "name": "Digital Piano",
+      "subtitle": "A classical piano in your pocket.",
+      "description": "Digital piano lets you play your favourite songs on this pocket-sized piano. Spanning over three octaves, it has the feel and touch of a real classical piano."
+    }
+  },
+  "default_locale": "en-US"
+}
